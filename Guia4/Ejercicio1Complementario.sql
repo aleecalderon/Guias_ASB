@@ -1,0 +1,33 @@
+CREATE DATABASE Control_Inscripciones
+GO
+
+USE Control_Inscripciones;
+
+CREATE TABLE Alumno(
+Carnet VARCHAR(10) PRIMARY KEY,
+Nombres VARCHAR(50) NOT NULL,
+Apellidos VARCHAR(50) NOT NULL,
+Dirección TEXT NOT NULL,
+Correo VARCHAR(100) UNIQUE NOT NULL,
+Teléfono VARCHAR(15) NOT NULL,
+Fecha_Nacimiento DATE NOT NULL
+);
+
+CREATE TABLE Materia (
+Código VARCHAR(10) PRIMARY KEY,
+Nombre VARCHAR(100) NOT NULL,
+UV INT NOT NULL,
+Prerrequisitos VARCHAR(10) NULL,
+Ciclo INT NOT NULL,
+FOREIGN KEY (Prerrequisitos) REFERENCES materia(Código)
+);
+
+CREATE TABLE inscripción (
+Matricula INT IDENTITY(1,1) PRIMARY KEY,
+Código_materia VARCHAR(10) NOT NULL,
+Carnet VARCHAR(10) NOT NULL,
+FOREIGN KEY (Código_materia) REFERENCES materia(Código) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (Carnet) REFERENCES alumno(Carnet) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
